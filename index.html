@@ -9,17 +9,8 @@
     <link rel="stylesheet" href="styles.css">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Flip.min.js"></script>
-
-<div class="filter-bar">
-    <button class="filter-btn active" data-genre="all">All</button>
-    <button class="filter-btn" data-genre="Electronic">Electronic</button>
-    <button class="filter-btn" data-genre="Jazz">Jazz</button>
-    <button class="filter-btn" data-genre="Rock">Rock</button>
-</div>
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
 </head>
 <body>
 
@@ -29,7 +20,7 @@
             <li data-link="crates">Crates</li>
             <li data-link="new" class="accent">// New Arrivals</li>
             <li data-link="vault">The Vault</li>
-            <li>Cart (0)</li>
+            <li>Cart (<span id="cart-count">0</span>)</li>
         </ul>
     </nav>
 
@@ -44,26 +35,29 @@
     <section id="crates" class="page">
         <div class="crates-header">
             <div class="header-content">
-                <h2>The Crates</h2>
-                <p style="font-family: 'JetBrains Mono'; font-size: 0.7rem; opacity: 0.5;">[ SCROLL TO EXPLORE ]</p>
+                <h2 class="syne-bold">The Crates</h2>
+                <div class="filter-bar">
+                    <button class="filter-btn active" data-genre="all">All</button>
+                    <button class="filter-btn" data-genre="Electronic">Electronic</button>
+                    <button class="filter-btn" data-genre="Jazz">Jazz</button>
+                    <button class="filter-btn" data-genre="Rock">Rock</button>
+                    <button class="filter-btn" data-genre="Hip Hop">Hip Hop</button>
+                </div>
             </div>
             <div class="controls">
-                <input type="text" id="record-search" placeholder="Search collection..." 
-                       style="background: transparent; border: none; border-bottom: 1px solid var(--border); color: white; padding: 5px; font-family: 'JetBrains Mono'; outline: none;">
-                <span id="item-count" class="accent" style="margin-left: 20px; font-family: 'JetBrains Mono';">0 ITEMS</span>
+                <span id="item-count" class="accent mono">0 ITEMS</span>
             </div>
         </div>
 
-        <div class="admin-panel" style="margin-top: 50px; padding: 20px; border: 1px dashed var(--border);">
-    <p class="mono" style="font-size: 0.6rem; margin-bottom: 10px;">[ ADMIN: ADD BY DISCOGS ID ]</p>
-    <div style="display: flex; gap: 10px;">
-        <input type="text" id="admin-id-input" placeholder="e.g. 249504" style="flex: 1; background: #000; border: 1px solid var(--border); color: white; padding: 10px;">
-        <button id="admin-add-btn" class="cta" style="margin: 0;">ADD TO GRID</button>
-    </div>
-</div>
-        
-        <div class="bento-grid" id="records-grid">
+        <div class="bento-grid" id="records-grid"></div>
+
+        <div class="admin-panel">
+            <p class="mono" style="font-size: 0.6rem; margin-bottom: 10px; opacity: 0.4;">[ ADMIN: ADD BY DISCOGS ID ]</p>
+            <div style="display: flex; gap: 10px;">
+                <input type="text" id="admin-id-input" placeholder="e.g. 249504">
+                <button id="admin-add-btn" class="cta" style="margin: 0; padding: 0.5rem 1rem;">ADD</button>
             </div>
+        </div>
     </section>
 
     <div class="player-bar" id="player-bar">
@@ -78,5 +72,3 @@
     <script type="module" src="js/App.js"></script>
 </body>
 </html>
-
-
