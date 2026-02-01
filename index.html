@@ -7,6 +7,9 @@
 
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Syne:wght@700;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
 </head>
 <body>
 
@@ -14,7 +17,7 @@
         <div class="logo" data-link="home">Pete's Records</div>
         <ul>
             <li data-link="crates">Crates</li>
-            <li data-link="new">New Arrivals</li>
+            <li data-link="new" class="accent">// New Arrivals</li>
             <li data-link="vault">The Vault</li>
             <li>Cart (0)</li>
         </ul>
@@ -23,37 +26,37 @@
     <section id="home" class="page active">
         <div class="hero-text">
             <h1>Physical <br><span class="accent">Sound</span></h1>
-            <p style="color: #888; margin-bottom: 2rem;">Rare pressings and timeless classics.</p>
+            <p style="color: #888; margin-bottom: 2rem; font-family: 'JetBrains Mono';">RARE PRESSINGS & TIMELESS CLASSICS.</p>
             <button class="cta" data-link="crates">EXPLORE CRATES</button>
         </div>
     </section>
 
-<section id="crates" class="page">
-    <div class="crates-header">
-        <div class="header-content">
-            <h2 class="syne-bold">The Crates</h2>
-            <p class="mono">FLIP THROUGH THE COLLECTION</p>
+    <section id="crates" class="page">
+        <div class="crates-header">
+            <div class="header-content">
+                <h2>The Crates</h2>
+                <p style="font-family: 'JetBrains Mono'; font-size: 0.7rem; opacity: 0.5;">[ SCROLL TO EXPLORE ]</p>
+            </div>
+            <div class="controls">
+                <input type="text" id="record-search" placeholder="Search collection..." 
+                       style="background: transparent; border: none; border-bottom: 1px solid var(--border); color: white; padding: 5px; font-family: 'JetBrains Mono'; outline: none;">
+                <span id="item-count" class="accent" style="margin-left: 20px; font-family: 'JetBrains Mono';">0 ITEMS</span>
+            </div>
         </div>
-        <div class="controls">
-            <input type="text" id="record-search" placeholder="Search by Artist or ID...">
-            <span id="item-count" class="accent">0 ITEMS</span>
-        </div>
-    </div>
 
-    <div class="bento-grid" id="records-grid">
-        </div>
-</section>
+        <div class="bento-grid" id="records-grid">
+            </div>
+    </section>
 
-    <div class="player-bar" id="player-bar" style="display:none;">
+    <div class="player-bar" id="player-bar">
         <div class="player-info">
             <span id="track-name" class="accent">SELECT A RECORD</span>
-            <span id="artist-name">Artist Name</span>
+            <span id="artist-name" style="display: block; opacity: 0.5;">Artist Name</span>
         </div>
         <audio id="audio-player" controls></audio>
-        <div id="close-player" style="cursor:pointer;">[X] CLOSE</div>
+        <div id="close-player" style="cursor:pointer; font-family: 'JetBrains Mono'; font-size: 0.7rem;">[X] CLOSE</div>
     </div>
 
     <script type="module" src="js/App.js"></script>
 </body>
 </html>
-
