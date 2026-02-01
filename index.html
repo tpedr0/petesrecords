@@ -28,13 +28,21 @@
         </div>
     </section>
 
-    <section id="crates" class="page">
-        <div class="crates-header">
-            <h2>The Crates</h2>
+<section id="crates" class="page">
+    <div class="crates-header">
+        <div class="header-content">
+            <h2 class="syne-bold">The Crates</h2>
+            <p class="mono">FLIP THROUGH THE COLLECTION</p>
+        </div>
+        <div class="controls">
+            <input type="text" id="record-search" placeholder="Search by Artist or ID...">
             <span id="item-count" class="accent">0 ITEMS</span>
         </div>
-        <div class="grid" id="records-grid"></div>
-    </section>
+    </div>
+
+    <div class="bento-grid" id="records-grid">
+        </div>
+</section>
 
     <div class="player-bar" id="player-bar" style="display:none;">
         <div class="player-info">
@@ -48,3 +56,4 @@
     <script type="module" src="js/App.js"></script>
 </body>
 </html>
+
