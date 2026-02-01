@@ -45,4 +45,27 @@ export class UI {
             onLeave: elements => gsap.to(elements, {opacity: 0, scale: 0.8})
         });
     }
+
+    static authAdmin(success) {
+        const loginForm = document.getElementById('admin-login');
+        const dashboard = document.getElementById('admin-dashboard');
+        
+        if (success) {
+            gsap.to(loginForm, { opacity: 0, duration: 0.4, onComplete: () => {
+                loginForm.style.display = 'none';
+                dashboard.style.display = 'block';
+                gsap.fromTo(dashboard, { opacity: 0 }, { opacity: 1 });
+            }});
+        } else {
+            gsap.to(loginForm, { x: 10, repeat: 3, yoyo: true, duration: 0.05 }); // Shake effect
+        }
+    }
+
+    static logSession(message) {
+        const log = document.getElementById('session-updates');
+        const entry = document.createElement('div');
+        entry.innerText = `> ${new Date().toLocaleTimeString()}: ${message}`;
+        log.prepend(entry);
+    }
 }
+
