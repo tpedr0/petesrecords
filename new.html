@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pete's Records | OOP Edition</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <div class="logo" data-link="home">Pete's Records</div>
+        <ul>
+            <li data-link="crates">Crates</li>
+            <li>Cart (0)</li>
+        </ul>
+    </nav>
+
+    <section id="home" class="page active">
+        <div class="hero-text">
+            <h1>Analog<br><span class="accent">Soul</span></h1>
+            <button class="cta" data-link="crates">START DIGGING</button>
+        </div>
+    </section>
+
+    <section id="crates" class="page">
+        <div class="header">
+            <h2>THE CRATES</h2>
+        </div>
+        <div class="grid" id="records-grid"></div>
+    </section>
+
+    <div class="player-bar" id="player-bar">
+        <div class="player-info">
+            <span id="track-name" class="accent"></span>
+            <span id="artist-name"></span>
+        </div>
+        <audio id="audio-player" controls></audio>
+    </div>
+
+    <script type="module" src="js/App.js"></script>
+</body>
+</html>
