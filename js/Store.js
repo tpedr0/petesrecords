@@ -2,7 +2,9 @@ const DISCOGS_TOKEN = "SJfQMGrnfdgTUMLflEYrzJMMQMEhiEkANOGlDbUJ";
 
 export class Store {
     constructor() {
-        this.records = [];
+        // Load from localStorage if it exists, otherwise start empty
+        const saved = localStorage.getItem('pete_collection');
+        this.records = saved ? JSON.parse(saved) : [];
     }
 
     async fetchFromDiscogs(releaseId) {
@@ -14,6 +16,7 @@ export class Store {
             const data = await response.json();
 
             return {
+                uuid: crypto.randomUUID(), // Unique ID for deletion logic
                 id: data.id,
                 artist: data.artists[0].name,
                 title: data.title,
@@ -26,9 +29,22 @@ export class Store {
         }
     }
 
+    save() {
+        localStorage.setItem('pete_collection', JSON.stringify(this.records));
+    }
+
     async loadInitial(ids) {
-        const results = await Promise.all(ids.map(id => this.fetchFromDiscogs(id)));
-        this.records = results.filter(r => r !== null);
+        // Only load defaults if the user has a totally empty collection
+        if (this.records.length === 0) {
+            const results = await Promise.all(ids.map(id => this.fetchFromDiscogs(id)));
+            this.records = results.filter(r => r !== null);
+            this.save();
+        }
         return this.records;
+    }
+
+    removeRecord(uuid) {
+        this.records = this.records.filter(r => r.uuid !== uuid);
+        this.save();
     }
 }
