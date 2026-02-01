@@ -1,104 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pete's Records | Analog Soul</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Syne:wght@700;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Flip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+    <meta charset="UTF-8"><title>Pete's Records | Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans&family=Syne:wght@800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/shared.css">
+    <link rel="stylesheet" href="css/home.css">
 </head>
 <body>
-
     <nav>
-        <div class="logo" data-link="home">Pete's Records</div>
+        <a href="index.html" class="logo">Pete's Records</a>
         <ul>
-            <li data-link="crates">Crates</li>
-            <li data-link="new" class="accent">// New Arrivals</li>
-            <li data-link="vault">The Vault</li>
-            <li data-link="admin" style="opacity: 0.5;">Admin</li>
-            <li>Cart (<span id="cart-count">0</span>)</li>
+            <li><a href="crates.html">Crates</a></li>
+            <li><a href="admin.html">Admin</a></li>
         </ul>
     </nav>
-
-    <section id="home" class="page active">
-        <div class="hero-text">
-            <h1>Physical <br><span class="accent">Sound</span></h1>
-            <p style="color: #888; margin-bottom: 2rem; font-family: 'JetBrains Mono';">RARE PRESSINGS & TIMELESS CLASSICS.</p>
-            <button class="cta" data-link="crates">EXPLORE CRATES</button>
-        </div>
+    <section class="hero">
+        <h1>Physical <span class="accent">Sound</span></h1>
+        <a href="crates.html" class="cta">EXPLORE CRATES</a>
     </section>
-
-    <section id="crates" class="page">
-        <div class="crates-header">
-            <div class="header-content">
-                <h2 class="syne-bold">The Crates</h2>
-                <div class="filter-bar">
-                    <button class="filter-btn active" data-genre="all">All</button>
-                    <button class="filter-btn" data-genre="Electronic">Electronic</button>
-                    <button class="filter-btn" data-genre="Jazz">Jazz</button>
-                    <button class="filter-btn" data-genre="Rock">Rock</button>
-                    <button class="filter-btn" data-genre="Hip Hop">Hip Hop</button>
-                </div>
-            </div>
-            <div class="controls">
-                <span id="item-count" class="accent mono">0 ITEMS</span>
-            </div>
-        </div>
-
-        <div class="bento-grid" id="records-grid"></div>
-    </section>
-
-    <section id="admin" class="page">
-        <div class="admin-container">
-            <h2 class="syne-bold">System Access</h2>
-            
-            <div id="admin-login">
-                <p class="mono" style="margin-bottom: 20px; font-size: 0.7rem;">ENTER MASTER KEY TO MANAGE INVENTORY</p>
-                <input type="password" id="admin-token-input" placeholder="DISCOGS_TOKEN">
-                <button id="login-btn" class="cta" style="width: 100%;">UNLOCK SYSTEM</button>
-            </div>
-
-            <div id="admin-dashboard" style="display: none;">
-                <div class="dashboard-header">
-                    <span class="accent mono" style="font-size: 0.7rem;">STATUS: AUTHENTICATED</span>
-                    <button id="logout-btn" class="mono" style="background:transparent; border:none; color:#ff4444; cursor:pointer; font-size: 0.7rem;">[ LOGOUT ]</button>
-                </div>
-                
-                <div class="admin-tool">
-                    <h3 class="syne-bold" style="font-size: 1.1rem; margin-bottom: 15px;">Add New Release</h3>
-                    <div style="display: flex; gap: 10px; margin-bottom: 30px;">
-                        <input type="text" id="admin-id-input" placeholder="Discogs ID (e.g. 249504)" style="margin: 0;">
-                        <button id="admin-add-btn" class="cta" style="margin: 0; padding: 0 20px;">SYNC</button>
-                    </div>
-                </div>
-
-                <div class="inventory-section">
-                    <h3 class="syne-bold" style="font-size: 1.1rem; margin-bottom: 15px;">Current Inventory</h3>
-                    <div id="admin-inventory-list" style="max-height: 300px; overflow-y: auto; border-top: 1px solid var(--border);">
-                        </div>
-                </div>
-
-                <div id="session-updates" class="mono" style="font-size: 0.6rem; color: #555; margin-top: 20px; padding: 10px; background: rgba(0,0,0,0.2);">
-                    > SYSTEM READY...
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div class="player-bar" id="player-bar">
-        <div class="player-info">
-            <span id="track-name" class="accent">SELECT A RECORD</span>
-            <span id="artist-name" style="display: block; opacity: 0.5;">Artist Name</span>
-        </div>
-        <audio id="audio-player" controls></audio>
-        <div id="close-player" style="cursor:pointer; font-family: 'JetBrains Mono'; font-size: 0.7rem;">[X] CLOSE</div>
-    </div>
-
-    <script type="module" src="js/App.js"></script>
 </body>
 </html>
