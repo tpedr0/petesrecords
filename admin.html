@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="css/shared.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">Pete's Records</a>
+        <ul><li><a href="crates.html">Crates</a></li></ul>
+    </nav>
+
+    <main class="admin-ui">
+        <div id="login-gate">
+            <h2 class="syne">Access Key</h2>
+            <input type="password" id="key" placeholder="Discogs Token">
+            <button id="unlock-btn" class="cta">UNLOCK</button>
+        </div>
+
+        <div id="dashboard" style="display:none;">
+            <div class="tool">
+                <h3 class="syne">Sync New Record</h3>
+                <input type="text" id="discogs-id" placeholder="Release ID">
+                <button id="add-btn" class="cta">ADD ITEM</button>
+            </div>
+            <div id="inventory-list"></div>
+        </div>
+    </main>
+
+    <script type="module">
+        import { Store } from './js/services/Store.js';
+        const store = new Store();
+        const MASTER_KEY = "SJfQMGrnfdgTUMLflEYrzJMMQMEhiEkANOGlDbUJ";
+
+        document.getElementById('unlock-btn').onclick = () => {
+            if(document.getElementById('key').value === MASTER_KEY) {
+                document.getElementById('login-gate').style.display = 'none';
+                document.getElementById('dashboard').style.display = 'block';
+                renderList();
+            }
+        };
+
+        const renderList = () => {
+            const list = document.getElementById('inventory-list');
+            const items = store.getInventory();
+            list.innerHTML = items.map(r => `
+                <div class="admin-row">
+                    <span>${r.artist} - ${r.title}</span>
+                    <button class="del-btn" data-uuid="${r.uuid}">DELETE</button>
+                </div>
+            `).join('');
+        };
+
+        document.getElementById('add-btn').onclick = async () => {
+            const id = document.getElementById('discogs-id').value;
+            const record = await store.fetchDiscogs(id);
+            if(record) {
+                const current = store.getInventory();
+                current.unshift(record);
+                store.saveInventory(current);
+                renderList();
+                document.getElementById('discogs-id').value = '';
+            }
+        };
+
+        document.getElementById('inventory-list').onclick = (e) => {
+            if(e.target.className === 'del-btn') {
+                const filtered = store.getInventory().filter(r => r.uuid !== e.target.dataset.uuid);
+                store.saveInventory(filtered);
+                renderList();
+            }
+        };
+    </script>
+</body>
+</html>
