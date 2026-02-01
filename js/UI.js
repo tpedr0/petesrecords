@@ -29,43 +29,42 @@ export class UI {
         VanillaTilt.init(document.querySelectorAll(".record-card"), { max: 10, speed: 400, glare: true, "max-glare": 0.2 });
     }
 
-    static filterCrates(genre) {
-        const cards = document.querySelectorAll('.record-card');
-        const state = Flip.getState(cards);
+    static renderAdminInventory(records) {
+        const list = document.getElementById('admin-inventory-list');
+        if (!list) return;
 
-        cards.forEach(card => {
-            card.style.display = (genre === 'all' || card.dataset.genre === genre) ? 'flex' : 'none';
-        });
-
-        Flip.from(state, {
-            duration: 0.6,
-            ease: "power3.inOut",
-            stagger: 0.05,
-            onEnter: elements => gsap.fromTo(elements, {opacity: 0, scale: 0.8}, {opacity: 1, scale: 1}),
-            onLeave: elements => gsap.to(elements, {opacity: 0, scale: 0.8})
-        });
+        list.innerHTML = records.map(r => `
+            <div class="admin-item" style="display:flex; justify-content:space-between; align-items:center; padding:10px; border-bottom:1px solid var(--border);">
+                <div style="display:flex; gap:15px; align-items:center;">
+                    <img src="${r.image}" style="width:40px; height:40px; object-fit:cover;">
+                    <div>
+                        <p class="mono" style="font-size:0.8rem;">${r.title}</p>
+                        <p style="font-size:0.6rem; opacity:0.5;">${r.artist} | ID: ${r.id}</p>
+                    </div>
+                </div>
+                <button class="delete-btn" data-uuid="${r.uuid}" style="background:transparent; border:1px solid #ff4444; color:#ff4444; padding:5px 10px; cursor:pointer; font-family:'JetBrains Mono'; font-size:0.6rem;">DELETE</button>
+            </div>
+        `).join('');
     }
 
     static authAdmin(success) {
         const loginForm = document.getElementById('admin-login');
         const dashboard = document.getElementById('admin-dashboard');
-        
         if (success) {
-            gsap.to(loginForm, { opacity: 0, duration: 0.4, onComplete: () => {
+            gsap.to(loginForm, { opacity: 0, y: -20, onComplete: () => {
                 loginForm.style.display = 'none';
                 dashboard.style.display = 'block';
                 gsap.fromTo(dashboard, { opacity: 0 }, { opacity: 1 });
             }});
         } else {
-            gsap.to(loginForm, { x: 10, repeat: 3, yoyo: true, duration: 0.05 }); // Shake effect
+            gsap.to(loginForm, { x: 10, repeat: 3, yoyo: true, duration: 0.05 });
         }
     }
 
     static logSession(message) {
         const log = document.getElementById('session-updates');
         const entry = document.createElement('div');
-        entry.innerText = `> ${new Date().toLocaleTimeString()}: ${message}`;
+        entry.innerText = `> ${message}`;
         log.prepend(entry);
     }
 }
-
