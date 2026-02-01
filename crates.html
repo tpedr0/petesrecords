@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="css/shared.css">
+    <link rel="stylesheet" href="css/crates.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">Pete's Records</a>
+        <ul>
+            <li><a href="crates.html">Crates</a></li>
+            <li><a href="admin.html">Admin</a></li>
+        </ul>
+    </nav>
+
+    <main id="crates-page">
+        <div id="records-grid" class="bento-grid"></div>
+    </main>
+
+    <script type="module">
+        import { Store } from './js/services/Store.js';
+        import { Grid } from './js/components/Grid.js';
+
+        const store = new Store();
+        const records = store.getCollection();
+        Grid.render('records-grid', records);
+
+        gsap.from(".record-card", { opacity: 0, y: 50, stagger: 0.1 });
+    </script>
+</body>
+</html>
