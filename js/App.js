@@ -1,51 +1,35 @@
 import { Store } from './Store.js';
 import { UI } from './UI.js';
 
-class App {
-    constructor() {
-        this.queries = [
-            'Justice Cross',
-            'Tame Impala Currents',
-            'Daft Punk Discovery',
-            'Miles Davis Kind of Blue',
-            'Nas Illmatic',
-            'The Smiths Meat is Murder'
-        ];
+const recordStore = new Store();
 
-        this.init();
-    }
+// Initial collection (IDs from Discogs)
+const initialCollection = [249504, 151639, 1021469, 12558503];
 
-    async init() {
-        document.addEventListener('click', (e) => {
-            const link = e.target.closest('[data-link]');
-            if (link) UI.showPage(link.dataset.link);
+document.addEventListener('DOMContentLoaded', async () => {
+    // 1. Initial Load
+    const data = await recordStore.loadCrates(initialCollection);
+    UI.renderCrates(data);
+
+    // 2. Navigation
+    document.querySelectorAll('[data-link]').forEach(link => {
+        link.addEventListener('click', (e) => {
+            const pageId = e.target.getAttribute('data-link');
+            UI.showPage(pageId);
         });
+    });
 
-        const albums = await Store.getAlbums(this.queries);
-        const grid = document.getElementById('records-grid');
-
-        grid.innerHTML = albums.map(alb => `
-            <div class="item" data-artist="${alb.artistName}" data-album="${alb.collectionName}">
-                <img src="${alb.artworkUrl100.replace('100x100', '600x600')}">
-                <h3>${alb.collectionName}</h3>
-                <p>${alb.artistName}</p>
-            </div>
-        `).join('');
-
-        grid.addEventListener('click', async (e) => {
-            const item = e.target.closest('.item');
-            if (!item) return;
-
-            const track = await Store.getTrack(
-                item.dataset.artist,
-                item.dataset.album
-            );
-
-            if (track?.previewUrl) {
-                UI.updatePlayer(track);
-            }
-        });
-    }
-}
-
-new App();
+    // 3. Admin Functionality
+    document.getElementById('admin-add-btn').addEventListener('click', async () => {
+        const idInput = document.getElementById('admin-id-input');
+        const newRecord = await recordStore.fetchFromDiscogs(idInput.value);
+        
+        if (newRecord) {
+            recordStore.records.unshift(newRecord); // Add to start of list
+            UI.renderCrates(recordStore.records); // Re-render with animations
+            idInput.value = '';
+        } else {
+            alert("Invalid Discogs ID");
+        }
+    });
+});
