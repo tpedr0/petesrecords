@@ -20,6 +20,7 @@
             <li data-link="crates">Crates</li>
             <li data-link="new" class="accent">// New Arrivals</li>
             <li data-link="vault">The Vault</li>
+            <li data-link="admin" style="opacity: 0.5;">Admin</li>
             <li>Cart (<span id="cart-count">0</span>)</li>
         </ul>
     </nav>
@@ -52,40 +53,43 @@
         <div class="bento-grid" id="records-grid"></div>
     </section>
 
-    <li data-link="admin">Admin</li>
-
-<section id="admin" class="page">
-    <div class="admin-container">
-        <h2 class="syne-bold">System Access</h2>
-        
-        <div id="admin-login">
-            <p class="mono" style="margin-bottom: 20px;">ENTER ACCESS TOKEN TO MANAGE CRATES</p>
-            <input type="password" id="admin-token-input" placeholder="DISCOGS_TOKEN_HERE">
-            <button id="login-btn" class="cta">UNLOCK</button>
-        </div>
-
-        <div id="admin-dashboard" style="display: none;">
-            <div class="dashboard-header">
-                <span class="accent mono">STATUS: AUTHENTICATED</span>
-                <button id="logout-btn" class="mono" style="background:transparent; border:none; color:red; cursor:pointer;">[ LOGOUT ]</button>
-            </div>
+    <section id="admin" class="page">
+        <div class="admin-container">
+            <h2 class="syne-bold">System Access</h2>
             
-            <div class="admin-tool">
-                <h3>Catalog Management</h3>
-                <div class="input-group">
-                    <input type="text" id="admin-id-input" placeholder="Enter Discogs Release ID">
-                    <button id="admin-add-btn" class="cta">ADD TO COLLECTION</button>
+            <div id="admin-login">
+                <p class="mono" style="margin-bottom: 20px; font-size: 0.7rem;">ENTER MASTER KEY TO MANAGE INVENTORY</p>
+                <input type="password" id="admin-token-input" placeholder="DISCOGS_TOKEN">
+                <button id="login-btn" class="cta" style="width: 100%;">UNLOCK SYSTEM</button>
+            </div>
+
+            <div id="admin-dashboard" style="display: none;">
+                <div class="dashboard-header">
+                    <span class="accent mono" style="font-size: 0.7rem;">STATUS: AUTHENTICATED</span>
+                    <button id="logout-btn" class="mono" style="background:transparent; border:none; color:#ff4444; cursor:pointer; font-size: 0.7rem;">[ LOGOUT ]</button>
+                </div>
+                
+                <div class="admin-tool">
+                    <h3 class="syne-bold" style="font-size: 1.1rem; margin-bottom: 15px;">Add New Release</h3>
+                    <div style="display: flex; gap: 10px; margin-bottom: 30px;">
+                        <input type="text" id="admin-id-input" placeholder="Discogs ID (e.g. 249504)" style="margin: 0;">
+                        <button id="admin-add-btn" class="cta" style="margin: 0; padding: 0 20px;">SYNC</button>
+                    </div>
+                </div>
+
+                <div class="inventory-section">
+                    <h3 class="syne-bold" style="font-size: 1.1rem; margin-bottom: 15px;">Current Inventory</h3>
+                    <div id="admin-inventory-list" style="max-height: 300px; overflow-y: auto; border-top: 1px solid var(--border);">
+                        </div>
+                </div>
+
+                <div id="session-updates" class="mono" style="font-size: 0.6rem; color: #555; margin-top: 20px; padding: 10px; background: rgba(0,0,0,0.2);">
+                    > SYSTEM READY...
                 </div>
             </div>
-
-            <div class="current-session-log">
-                <p class="mono" style="font-size: 0.7rem; color: #555;">SESSION ACTIVITY:</p>
-                <div id="session-updates" class="mono" style="font-size: 0.7rem;"></div>
-            </div>
         </div>
-    </div>
-</section>
-    
+    </section>
+
     <div class="player-bar" id="player-bar">
         <div class="player-info">
             <span id="track-name" class="accent">SELECT A RECORD</span>
@@ -98,4 +102,3 @@
     <script type="module" src="js/App.js"></script>
 </body>
 </html>
-
