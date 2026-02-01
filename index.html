@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pete's Records | Analog Soul</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Syne:wght@700;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav>
+        <div class="logo" data-link="home">Pete's Records</div>
+        <ul>
+            <li data-link="crates">Crates</li>
+            <li data-link="new">New Arrivals</li>
+            <li data-link="vault">The Vault</li>
+            <li>Cart (0)</li>
+        </ul>
+    </nav>
+
+    <section id="home" class="page active">
+        <div class="hero-text">
+            <h1>Physical <br><span class="accent">Sound</span></h1>
+            <p style="color: #888; margin-bottom: 2rem;">Rare pressings and timeless classics.</p>
+            <button class="cta" data-link="crates">EXPLORE CRATES</button>
+        </div>
+
+        <div class="visual-container">
+            <div class="vinyl-wrapper">
+                <div class="record-sleeve"></div>
+                <div class="vinyl-disc"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="crates" class="page">
+        <div class="crates-header">
+            <h2>The Crates</h2>
+            <span id="item-count" class="accent">0 ITEMS</span>
+        </div>
+        <div class="grid" id="records-grid"></div>
+    </section>
+
+    <div class="player-bar" id="player-bar">
+        <div class="player-info">
+            <span id="track-name" class="accent">SELECT A RECORD</span>
+            <span id="artist-name">Artist Name</span>
+        </div>
+        <audio id="audio-player" controls></audio>
+        <div id="close-player" style="cursor:pointer; font-family:'JetBrains Mono'; font-size:0.7rem;">[X] CLOSE</div>
+    </div>
+
+    <div class="ticker">
+        <div class="ticker-text">
+            // NEW ARRIVALS: MILES DAVIS - KIND OF BLUE // TAME IMPALA - CURRENTS // PINK FLOYD - DARK SIDE // APEX TWIN - SELECTED AMBIENT WORKS //
+        </div>
+    </div>
+
+    <script type="module" src="js/App.js"></script>
+</body>
+</html>
