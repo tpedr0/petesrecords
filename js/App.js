@@ -1,35 +1,36 @@
 import { Store } from './Store.js';
 import { UI } from './UI.js';
 
-const recordStore = new Store();
-
-// Initial collection (IDs from Discogs)
-const initialCollection = [249504, 151639, 1021469, 12558503];
+const store = new Store();
+const initialIDs = [249504, 151639, 1021469, 12558503, 1120630, 232915];
 
 document.addEventListener('DOMContentLoaded', async () => {
-    // 1. Initial Load
-    const data = await recordStore.loadCrates(initialCollection);
-    UI.renderCrates(data);
+    // 1. Load Data
+    const records = await store.loadInitial(initialIDs);
+    UI.renderCrates(records);
 
     // 2. Navigation
-    document.querySelectorAll('[data-link]').forEach(link => {
-        link.addEventListener('click', (e) => {
-            const pageId = e.target.getAttribute('data-link');
-            UI.showPage(pageId);
-        });
+    document.querySelectorAll('[data-link]').forEach(btn => {
+        btn.onclick = () => UI.showPage(btn.dataset.link);
     });
 
-    // 3. Admin Functionality
-    document.getElementById('admin-add-btn').addEventListener('click', async () => {
-        const idInput = document.getElementById('admin-id-input');
-        const newRecord = await recordStore.fetchFromDiscogs(idInput.value);
-        
-        if (newRecord) {
-            recordStore.records.unshift(newRecord); // Add to start of list
-            UI.renderCrates(recordStore.records); // Re-render with animations
-            idInput.value = '';
-        } else {
-            alert("Invalid Discogs ID");
-        }
+    // 3. Filtering
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.onclick = () => {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            UI.filterCrates(btn.dataset.genre);
+        };
     });
+
+    // 4. Admin Add
+    document.getElementById('admin-add-btn').onclick = async () => {
+        const input = document.getElementById('admin-id-input');
+        const record = await store.fetchFromDiscogs(input.value);
+        if (record) {
+            store.records.unshift(record);
+            UI.renderCrates(store.records);
+            input.value = '';
+        }
+    };
 });
